@@ -1,0 +1,33 @@
+def rail_fence_cipher_decryption(cipher, key):
+    grid = [["" for i in range(len(cipher))] for j in range(key)]
+    row, col = 0, 0
+    direction = -1
+    for i in range(len(cipher)):
+        if row == 0 or row == key - 1:
+            direction = -direction
+        grid[row][col] += "*"
+        row += direction
+        col += 1
+
+    index = 0
+    plaintext = ""
+    for i in range(key):
+        for j in range(len(cipher)):
+            if grid[i][j] == "*" and index < len(cipher):
+                grid[i][j] = cipher[index]
+                index += 1
+
+    row, col = 0, 0
+    direction = -1
+    for i in range(len(cipher)):
+        if row == 0 or row == key - 1:
+            direction = -direction
+        if grid[row][col] != "*":
+            plaintext += grid[row][col]
+        row += direction
+        col += 1
+
+    return plaintext
+decrypted_text = rail_fence_cipher_decryption(cipher, key)
+print("Cipher text:", cipher)
+print("Decrypted text:",decrypted_text)
