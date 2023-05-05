@@ -1,3 +1,30 @@
+def rail_fence_cipher(text, key):
+    grid = [["" for i in range(len(text))] for j in range(key)]
+    textl = text.replace(" ", "")
+    flag = 0
+    row = 0
+    for i in range(len(textl)):
+        grid[row][i] = textl[i]
+        if row == 0:
+            flag = 0
+        elif row == key - 1:
+            flag = 1
+        if flag == 0:
+            row += 1
+        else:
+            row -= 1
+    lst = []
+    for i in range(key):
+        for j in range(len(text)):
+            if grid[i][j] != "":
+                lst.append(grid[i][j])
+    cipher = "".join(lst)
+    return cipher
+
+text = input("Enter the text here: ")
+key = int(input("Enter the key here: "))
+cipher = rail_fence_cipher(text, key)
+print("The encrypted message: ",cipher)
 def rail_fence_cipher_decryption(cipher, key):
     grid = [["" for i in range(len(cipher))] for j in range(key)]
     row, col = 0, 0
